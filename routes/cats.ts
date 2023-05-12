@@ -50,6 +50,14 @@ const updateRecord = async (ctx: RouterContext, next: any) => {
 }
 
 const deleteRecord = async (ctx: RouterContext, next: any) => {
+  let id = +ctx.params.id;
+  if ((id < cats.length +1) && (id > 0)) {
+    cats.splice(id-1, 1);
+    ctx.status = 200;
+    ctx.body = cats;
+  } else {
+    ctx.status = 404;
+  }
   await next();
 }
 
