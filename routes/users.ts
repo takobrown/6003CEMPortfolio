@@ -4,6 +4,8 @@ import * as model from "../models/users";
 
 const router = new Router({ prefix: '/api/v1/users' });
 
+
+
 const findByUsername = async (ctx: RouterContext, next: any) => {
   let username = ctx.params.username;
   /*if((id < cats.length +1) && (id > 0)){
@@ -22,7 +24,6 @@ const findByUsername = async (ctx: RouterContext, next: any) => {
 
 
 //router.get('/', getAll);
-//router.get('/:id([0-9]{1,})', getById);
 router.get('/:username', findByUsername);
 
 export { router };

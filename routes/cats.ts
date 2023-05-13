@@ -1,6 +1,8 @@
 import Router, { RouterContext } from "koa-router";
 import bodyParser from "koa-bodyparser";
 import * as model from "../models/cats";
+import { validateCats } from "../controllers/validation";
+import { basicAuth } from "../controllers/auth";
 
 const cats = [
   { title: 'Cat1', fullText: 'detail1' },
@@ -58,7 +60,7 @@ const getById = async (ctx: RouterContext, next: any) => {
 }
 
 const updateRecord = async (ctx: RouterContext, next: any) => {
-  let id = +ctx.params.id;
+  /*let id = +ctx.params.id;
   let { title, fullText } = ctx.request.body;
   if ((id < cats.length + 1) && (id > 0)) {
     cats[id - 1].title = title;
@@ -69,9 +71,37 @@ const updateRecord = async (ctx: RouterContext, next: any) => {
     ctx.status = 404;
   }
   await next();
+}*/
+  const body = ctx.request.body;
+  const id = +ctx.params.id; // assuming that the record's id is passed as a parameter in the request
+
+  try {
+    const existingRecord = await model.getById(id); // assuming that the model has a getById method to fetch the existing record
+    if (!existingRecord) {
+      ctx.status = 404;
+      ctx.body = { err: "Record not found." };
+      return;
+    }
+
+    const updatedRecord = { ...existingRecord, ...body }; // merge the existing record with the updated values
+
+    const result = await model.update(id, body); // assuming that the model has an update method to update the record
+    if (result.status == 200) {
+      ctx.status = 200;
+      ctx.body = body;
+    } else {
+      ctx.status = 500;
+      ctx.body = { err: "Failed to update data." };
+    }
+  } catch (err) {
+    ctx.status = 500;
+    ctx.body = { err: "Failed to update data." };
+  }
+
+  await next();
 }
 
-const deleteRecord = async (ctx: RouterContext, next: any) => {
+/*const deleteRecord = async (ctx: RouterContext, next: any) => {
   let id = +ctx.params.id;
   if ((id < cats.length + 1) && (id > 0)) {
     cats.splice(id - 1, 1);
@@ -81,13 +111,41 @@ const deleteRecord = async (ctx: RouterContext, next: any) => {
     ctx.status = 404;
   }
   await next();
+}*/
+
+const deleteRecord = async (ctx: RouterContext, next: any) => {
+  const id = ctx.params.id; // assuming that the record's id is passed as a parameter in the request
+
+  try {
+    const existingRecord = await model.getById(id); // assuming that the model has a getById method to fetch the existing record
+    if (!existingRecord) {
+      ctx.status = 404;
+      ctx.body = { err: "Record not found." };
+      return;
+    }
+
+    const result = await model.deleteCats(id); // assuming that the model has a delete method to delete the record
+    if (result.status == 200) {
+      ctx.status = 200;
+      ctx.body = { msg: "Record deleted." };
+    } else {
+      ctx.status = 500;
+      ctx.body = { err: "Failed to delete data." };
+    }
+  } catch (err) {
+    ctx.status = 500;
+    ctx.body = { err: "Failed to delete data." };
+  }
+
+  await next();
 }
 
 //Endpoint
 router.get('/', getAll);
-router.post('/', bodyParser(), createRecord);
+router.post('/', basicAuth, bodyParser(), validateCats, createRecord);
 router.get('/:id([0-9]{1,})', getById);
+router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), validateCats, updateRecord);
 router.put('/:id([0-9]{1,})', bodyParser(), updateRecord);
-router.delete('/:id([0-9]{1,})', deleteRecord);
+router.delete('/:id([0-9]{1,})', basicAuth, deleteRecord);
 
 export { router };
