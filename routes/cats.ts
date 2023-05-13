@@ -1,5 +1,6 @@
 import Router, { RouterContext } from "koa-router";
 import bodyParser from "koa-bodyparser";
+import * as model from "../models/cats";
 
 const cats = [
   { title: 'Cat1', fullText: 'detail1' },
@@ -12,7 +13,13 @@ const router = new Router({ prefix: '/api/v1/cats' });
 
 //CRUD Function
 const getAll = async (ctx: RouterContext, next: any) => {
-  ctx.body = cats;
+  //ctx.body = cats;
+  let cats = await model.getAll();
+  if (cats.length) {
+    ctx.body = cats;
+  } else {
+    ctx.body = {};
+  }
   await next();
 }
 
@@ -27,8 +34,14 @@ const createRecord = async (ctx: RouterContext, next: any) => {
 
 const getById = async (ctx: RouterContext, next: any) => {
   let id = +ctx.params.id;
-  if((id < cats.length +1) && (id > 0)){
+  /*if((id < cats.length +1) && (id > 0)){
     ctx.body = cats [id-1];
+  } else {
+    ctx.status = 404;
+  }*/
+  let cats = await model.getById(id);
+  if (cats.length){
+    ctx.body = cats[0];
   } else {
     ctx.status = 404;
   }
