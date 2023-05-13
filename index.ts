@@ -1,9 +1,11 @@
 import Koa from "koa";
-import /*Router, */{ RouterContext } from "koa-router";
+import /*Router, */ { RouterContext } from "koa-router";
 import logger from "koa-logger";
 import json from "koa-json";
+import passport from "koa-passport";
 
 import { router as cats } from "./routes/cats";
+import { router as special } from './routes/special';
 
 const app: Koa = new Koa();
 //const router: Router = new Router();
@@ -20,16 +22,18 @@ router.get('/api/v1', welcomeAPI);*/
 
 app.use(logger());
 app.use(json());
+app.use(passport.initialize());
 //app.use(router.routes());
 app.use(cats.routes());
+app.use(special.routes());
 app.use(async (ctx: RouterContext, next: any) => {
   try {
     await next();
-    if (ctx.status === 404){
-      ctx.body = {err: "Resources not found"};
+    if (ctx.status === 404) {
+      ctx.body = { err: "Resources not found" };
     }
   } catch (err: any) {
-    ctx.body = {err: err};
+    ctx.body = { err: err };
   }
 })
 
