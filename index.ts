@@ -6,6 +6,7 @@ import passport from "koa-passport";
 
 import { router as cats } from "./routes/cats";
 import { router as special } from './routes/special';
+import { router as users } from './routes/users';
 
 const app: Koa = new Koa();
 //const router: Router = new Router();
@@ -26,6 +27,7 @@ app.use(passport.initialize());
 //app.use(router.routes());
 app.use(cats.routes());
 app.use(special.routes());
+app.use(users.routes());
 app.use(async (ctx: RouterContext, next: any) => {
   try {
     await next();

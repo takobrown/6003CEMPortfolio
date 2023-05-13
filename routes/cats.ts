@@ -31,12 +31,12 @@ const createRecord = async (ctx: RouterContext, next: any) => {
   ctx.body = newRecord;*/
   const body = ctx.request.body;
   let result = await model.add(body);
-  if (reseult.status == 201){
+  if (result.status == 201) {
     ctx.status = 201;
     ctx.body = body;
   } else {
     ctx.status = 500;
-    ctx.body = {err: "Failed to insert data."}
+    ctx.body = { err: "Failed to insert data." }
   }
   await next();
 }
@@ -49,7 +49,7 @@ const getById = async (ctx: RouterContext, next: any) => {
     ctx.status = 404;
   }*/
   let cats = await model.getById(id);
-  if (cats.length){
+  if (cats.length) {
     ctx.body = cats[0];
   } else {
     ctx.status = 404;
@@ -60,9 +60,9 @@ const getById = async (ctx: RouterContext, next: any) => {
 const updateRecord = async (ctx: RouterContext, next: any) => {
   let id = +ctx.params.id;
   let { title, fullText } = ctx.request.body;
-  if ((id < cats.length +1) && (id > 0)) {
-    cats[id-1].title = title;
-    cats[id-1].fullText = fullText;
+  if ((id < cats.length + 1) && (id > 0)) {
+    cats[id - 1].title = title;
+    cats[id - 1].fullText = fullText;
     ctx.status = 200;
     ctx.body = cats;
   } else {
@@ -73,8 +73,8 @@ const updateRecord = async (ctx: RouterContext, next: any) => {
 
 const deleteRecord = async (ctx: RouterContext, next: any) => {
   let id = +ctx.params.id;
-  if ((id < cats.length +1) && (id > 0)) {
-    cats.splice(id-1, 1);
+  if ((id < cats.length + 1) && (id > 0)) {
+    cats.splice(id - 1, 1);
     ctx.status = 200;
     ctx.body = cats;
   } else {
@@ -87,7 +87,7 @@ const deleteRecord = async (ctx: RouterContext, next: any) => {
 router.get('/', getAll);
 router.post('/', bodyParser(), createRecord);
 router.get('/:id([0-9]{1,})', getById);
-router.put('/:id([0-9]{1,})', bodyParser(),updateRecord);
+router.put('/:id([0-9]{1,})', bodyParser(), updateRecord);
 router.delete('/:id([0-9]{1,})', deleteRecord);
 
 export { router };
