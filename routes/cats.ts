@@ -24,11 +24,20 @@ const getAll = async (ctx: RouterContext, next: any) => {
 }
 
 const createRecord = async (ctx: RouterContext, next: any) => {
-  let { title, fullText } = ctx.request.body;
+  /*let { title, fullText } = ctx.request.body;
   let newRecord = { title: title, fullText: fullText };
   cats.push(newRecord);
   ctx.status = 201;
-  ctx.body = newRecord;
+  ctx.body = newRecord;*/
+  const body = ctx.request.body;
+  let result = await model.add(body);
+  if (reseult.status == 201){
+    ctx.status = 201;
+    ctx.body = body;
+  } else {
+    ctx.status = 500;
+    ctx.body = {err: "Failed to insert data."}
+  }
   await next();
 }
 

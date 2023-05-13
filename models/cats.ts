@@ -14,11 +14,19 @@ export const getAll = async() => {
 }
 
 export const add = async(cats: any) => {
-  let keys = Object.keys(article);
-  let values = Object.values(article);
+  let keys = Object.keys(cats);
+  let values = Object.values(cats);
   let key = keys.join(',');
   let param = '';
   for (let i: number = 0; i < values.length; i++) {
-    
+    param += '? , ';
+  }
+  param=param.slice(0, -1);
+  let query = `INSERT INTO articles (${key}) VALUES (${param})`;
+  try {
+    await db.run_insert (query, values);
+    return {status: 201};
+  } catch (err: any){
+    return err;
   }
 }
