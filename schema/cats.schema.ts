@@ -1,7 +1,7 @@
 export const cats = {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "/cats",
-  "title": "cats",
+  "id": "/article",
+  "title": "Article",
   "description": "An article in the blog",
   "type": "object",
   "properties": {
@@ -29,7 +29,7 @@ export const cats = {
       "description": "User ID of the article author",
       "type": "integer",
       "minimum": 0
-    },
+    }
   },
   "required": ["title", "allText", "authorID"]
 }

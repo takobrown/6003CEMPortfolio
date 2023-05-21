@@ -42,9 +42,9 @@ export const basicAuth = async (ctx: RouterContext, next: any) => {
     ctx.body = {
       message: 'Unauthorized to access!'
     };
-  } else {
-    ctx.body = {
-      message: "Login Success"
-    }
+  //} else {
+  //  ctx.body = {
+  //    message: "Login Success"
+  //  }
   }
 }

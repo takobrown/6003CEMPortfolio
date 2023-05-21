@@ -11,7 +11,7 @@ router.get('/', async (ctx: RouterContext, next: any) => {
   await next();
 })
 
-//Procted route that requires authentication
+//Proctected route that requires authentication
 router.get("/private", basicAuth);
 
 export { router };
