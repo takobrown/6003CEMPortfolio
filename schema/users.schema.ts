@@ -1,8 +1,8 @@
-export const cats = {
+export const users = {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "/cats",
-  "title": "Cats",
-  "description": "An article in the blog",
+  "id": "/users",
+  "title": "Users",
+  "description": "Users Endpoint",
   "type": "object",
   "properties": {
     "title": {
