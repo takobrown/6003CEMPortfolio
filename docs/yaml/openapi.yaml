@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Backend Pet Shelter API
+  description: The Pet Shelter API.
+  contact: 
+    name: Joyce Leung
+    email: 227019427@stu.vtc.edu.hk
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: 'https://6003cemportfolio.takobrown.repl.co'
+    description: Development server
+tags:
+  - name: users
+    description: API endpoints for user management.
+  - name: cats
+    description: Access and perform CRUD operations on cats entries.
+paths:
+  /cats/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: Numeric id of the cat
+    get:
+      tags:
+        - cats
+      description:
+        Get cats by id.
+      responses:
+        '200':
+          description: View of a cat record.
+        '404':
+          description: The cat was not found in the DB.
+    post:
+      tags:
+        - cats
+      description:
+        Create a new cat record
+      requestBody:
+        description: A new cat data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./cats.json#/definitions/cats
+        responses:
+          '201':
+            description: Cat record created
+    put:
+      tags:
+        - cats
+      description:
+        Update cats by ID.
+      responses:
+        '200':
+          description: View of a cat record.
+        '404':
+          description: The cat was not found in the DB.
+    delete:
+      tags:
+        - cats
+      description:
+        Delete cat record by ID.
+      responses:
+        '200':
+          description: View of a cat record.
+        '404':
+          description: The cat was not found in the DB.

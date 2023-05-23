@@ -8,6 +8,8 @@ import { router as cats } from "./routes/cats";
 import { router as special } from './routes/special';
 import { router as users } from './routes/users';
 
+import serve from 'koa-static-folder';
+
 const app: Koa = new Koa();
 //const router: Router = new Router();
 
@@ -19,7 +21,8 @@ const app: Koa = new Koa();
 //End-point
 router.get('/api/v1', welcomeAPI);*/
 
-
+//For Document:
+app.use(serve('./docs'));
 
 app.use(logger());
 app.use(json());
