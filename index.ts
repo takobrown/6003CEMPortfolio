@@ -4,6 +4,8 @@ import logger from "koa-logger";
 import json from "koa-json";
 import passport from "koa-passport";
 
+import cors from '@koa/cors';
+
 import { router as cats } from "./routes/cats";
 import { router as special } from './routes/special';
 import { router as users } from './routes/users';
@@ -20,6 +22,7 @@ const app: Koa = new Koa();
 
 //End-point
 router.get('/api/v1', welcomeAPI);*/
+app.use(cors());
 
 //For Document:
 app.use(serve('./docs'));
