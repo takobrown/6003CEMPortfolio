@@ -31,6 +31,7 @@ app.use(logger());
 app.use(json());
 app.use(passport.initialize());
 //app.use(router.routes());
+app.use(cors());
 app.use(cats.routes());
 app.use(special.routes());
 app.use(users.routes());

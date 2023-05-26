@@ -4,12 +4,12 @@ import * as model from "../models/cats";
 import { validateCats } from "../controllers/validation";
 import { basicAuth } from "../controllers/auth";
 
-const cats = [
+/*const cats = [
   { title: 'Cat1', fullText: 'detail1' },
   { title: 'cat2', fullText: 'detail2' },
   { title: 'cat3', fullText: 'detail3' },
   { title: 'cat4', fullText: 'detail4' },
-]
+]*/
 
 const router = new Router({ prefix: '/api/v1/cats' });
 
