@@ -1,32 +1,27 @@
-/// Add User
-// Update User Info
-// Delete User
-
 import Router, { RouterContext } from "koa-router";
 import bodyParser from "koa-bodyparser";
 import * as model from "../models/users";
 
 const router = new Router({ prefix: '/api/v1/users' });
 
-
 const findByUsername = async (ctx: RouterContext, next: any) => {
-  let username = ctx.params.username;
-  let users = await model.findByUsername(username);
-  if (users.length) {
-    ctx.body = users[0];
+  const username = ctx.params.username;
+  const users = await model.findByUsername(username);
+  if (users) {
+    ctx.body = users;
   } else {
     ctx.status = 404;
   }
   await next();
-}
+};
 
-//Get All user
 const getAllUsers = async (ctx: RouterContext, next: any) => {
   const users = await model.getAllUsers();
   ctx.body = users;
   await next();
-}
+};
 
+//Add User
 const addUser = async (ctx: RouterContext, next: any) => {
   const user = ctx.request.body;
   const result = await model.addUser(user);
@@ -36,40 +31,38 @@ const addUser = async (ctx: RouterContext, next: any) => {
     ctx.status = 500;
   }
   await next();
-}
+};
 
+//Update User Info
 const updateUser = async (ctx: RouterContext, next: any) => {
-  const id = parseInt(ctx.params.id);
+  const username = ctx.params.username;
   const user = ctx.request.body;
-  const result = await model.updateUser(id, user);
+  const result = await model.updateUser(username, user);
   if (result.status === 200) {
     ctx.status = 200;
   } else {
     ctx.status = 500;
   }
   await next();
-}
+};
 
+//Delete user
 const deleteUser = async (ctx: RouterContext, next: any) => {
-  const id = parseInt(ctx.params.id);
-  const result = await model.deleteUser(id);
+  const username = ctx.params.username;
+  const result = await model.deleteUser(username);
   if (result.status === 200) {
     ctx.status = 200;
   } else {
     ctx.status = 500;
   }
   await next();
-}
+};
 
-
-
-//router.get('/', getAll);
 router.get('/:username', findByUsername);
-router.use(bodyParser());
 router.get('/', getAllUsers);
-router.post('/', addUser);
-router.put('/username', updateUser);
-router.delete('/username', deleteUser);
-
+router.post('/', bodyParser(), addUser);
+router.put('/:username', bodyParser(), updateUser);
+router.delete('/:username', deleteUser);
 
 export { router };
+
