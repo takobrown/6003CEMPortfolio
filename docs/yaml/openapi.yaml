@@ -71,3 +71,4 @@ paths:
           description: View of a cat record.
         '404':
           description: The cat was not found in the DB.
+
