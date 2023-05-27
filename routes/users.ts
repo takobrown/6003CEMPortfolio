@@ -1,6 +1,7 @@
 import Router, { RouterContext } from "koa-router";
 import bodyParser from "koa-bodyparser";
 import * as model from "../models/users";
+import { basicAuth } from "../controllers/auth";
 
 const router = new Router({ prefix: '/api/v1/users' });
 
@@ -48,8 +49,8 @@ const updateUser = async (ctx: RouterContext, next: any) => {
 
 //Delete user
 const deleteUser = async (ctx: RouterContext, next: any) => {
-  const username = ctx.params.username;
-  const result = await model.deleteUser(username);
+  const id = +ctx.params.id;
+  const result = await model.deleteUser(id);
   if (result.status === 200) {
     ctx.status = 200;
   } else {
@@ -61,8 +62,8 @@ const deleteUser = async (ctx: RouterContext, next: any) => {
 router.get('/:username', findByUsername);
 router.get('/', getAllUsers);
 router.post('/', bodyParser(), addUser);
-router.put('/:username', bodyParser(), updateUser);
-router.delete('/:username', deleteUser);
+router.put('/:username', basicAuth, bodyParser(), updateUser);
+router.delete('/:id([0-9]{1,})', basicAuth, deleteUser);
 
 export { router };
 

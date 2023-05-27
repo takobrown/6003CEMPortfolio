@@ -114,7 +114,7 @@ const updateRecord = async (ctx: RouterContext, next: any) => {
 }*/
 
 const deleteRecord = async (ctx: RouterContext, next: any) => {
-  const id = ctx.params.id; // assuming that the record's id is passed as a parameter in the request
+  const id = ctx.params.id; 
 
   try {
     const existingRecord = await model.getById(id); // assuming that the model has a getById method to fetch the existing record

@@ -4,7 +4,8 @@ export const findByUsername = async (username: string) => {
   const query = 'SELECT * FROM users WHERE username = ?';
   const user = await db.run_query(query, [username]);
   if (user.length) {
-    return user[0];
+    //   return user[0];
+    return user;
   }
   return null;
 };
@@ -35,8 +36,8 @@ export const updateUser = async (username: string, user: any) => {
   const values = Object.values(user);
   const setStatement = keys.map((key) => `${key} = ?`).join(', ');
 
-  const query = `UPDATE users SET ${setStatement} WHERE id = ?`;
-  values.push(username);
+  const query = `UPDATE users SET ${setStatement} WHERE id = ?`;  
+  values.push(id);
 
   try {
     await db.run_query(query, values);
@@ -46,7 +47,7 @@ export const updateUser = async (username: string, user: any) => {
   }
 };
 
-export const deleteUser = async (username: string) => {
+export const deleteUser = async (username: any) => {
   const query = 'DELETE FROM users WHERE id = ?';
   try {
     await db.run_query(query, [username]);
