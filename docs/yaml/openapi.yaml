@@ -18,6 +18,59 @@ tags:
   - name: cats
     description: Access and perform CRUD operations on cats entries.
 paths:
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: Numeric id of the user
+    get:
+      tags:
+        - users
+      description:
+        Get users by id.
+      responses:
+        '200':
+          description: View of a user record.
+        '404':
+          description: The user was not found in the DB.
+    post:
+      tags:
+        - users
+      description:
+        Create a new user record
+      requestBody:
+        description: A new user data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./users.json#/definitions/users
+        responses:
+          '201':
+            description: User record created
+    put:
+      tags:
+        - users
+      description:
+        Update users by ID.
+      responses:
+        '200':
+          description: View of a user record.
+        '404':
+          description: The user was not found in the DB.
+    delete:
+      tags:
+        - users
+      description:
+        Delete user record by ID.
+      responses:
+        '200':
+          description: View of a user record.
+        '404':
+          description: The user was not found in the DB.
   /cats/{id}:
     parameters:
       - in: path

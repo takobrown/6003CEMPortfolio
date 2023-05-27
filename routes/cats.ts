@@ -16,7 +16,7 @@ const router = new Router({ prefix: '/api/v1/cats' });
 //CRUD Function
 const getAll = async (ctx: RouterContext, next: any) => {
   //ctx.body = cats;
-  let cats = await model.getAll();
+  const cats = await model.getAll();
   if (cats.length) {
     ctx.body = cats;
   } else {
@@ -32,7 +32,7 @@ const createRecord = async (ctx: RouterContext, next: any) => {
   ctx.status = 201;
   ctx.body = newRecord;*/
   const body = ctx.request.body;
-  let result = await model.add(body);
+  const result = await model.add(body);
   if (result.status == 201) {
     ctx.status = 201;
     ctx.body = body;
@@ -44,13 +44,13 @@ const createRecord = async (ctx: RouterContext, next: any) => {
 }
 
 const getById = async (ctx: RouterContext, next: any) => {
-  let id = +ctx.params.id;
+  const id = +ctx.params.id;
   /*if((id < cats.length +1) && (id > 0)){
     ctx.body = cats [id-1];
   } else {
     ctx.status = 404;
   }*/
-  let cats = await model.getById(id);
+  const cats = await model.getById(id);
   if (cats.length) {
     ctx.body = cats[0];
   } else {

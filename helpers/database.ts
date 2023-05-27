@@ -5,7 +5,7 @@ export const run_query = async (query: string, values: any) => {
   try {
     const sequelize = new Sequelize(`postgres://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
     await sequelize.authenticate();
-    let data = await sequelize.query(query, {
+    const data = await sequelize.query(query, {
       replacements: values,
       type: QueryTypes.SELECT
     });
@@ -21,7 +21,7 @@ export const run_insert = async (sql: string, values: any) => {
   try {
     const sequelize = new Sequelize(`postgres://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
     await sequelize.authenticate();
-    let data = await sequelize.query(sql, {
+    const data = await sequelize.query(sql, {
       replacements: values,
       type: QueryTypes.INSERT
     });
@@ -37,7 +37,7 @@ export const run_update = async (sql: string, values: any) => {
   try {
     const sequelize = new Sequelize(`postgres://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
     await sequelize.authenticate();
-    let data = await sequelize.query(sql, {
+    const data = await sequelize.query(sql, {
       replacements: values,
       type: QueryTypes.UPDATE
     });
@@ -53,7 +53,7 @@ export const run_delete = async (sql: string, values: any) => {
   try {
     const sequelize = new Sequelize(`postgres://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
     await sequelize.authenticate();
-    let data = await sequelize.query(sql, {
+    const data = await sequelize.query(sql, {
       replacements: values,
       type: QueryTypes.DELETE
     });

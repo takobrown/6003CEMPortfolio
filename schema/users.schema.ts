@@ -21,8 +21,8 @@ export const users = {
       "description": "Login Name",
       "type": "string"
     },
-    "about": {
-      "description": "Other information of user",
+    "signupCode": {
+      "description": "The Pet Shelter staff register account code",
       "type": "string"
     },
     "password": {
