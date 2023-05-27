@@ -4,36 +4,40 @@
 		"cats": {
 			"id": "/cats",
 			"title": "Cats",
-			"description": "An article in the blog",
+			"description": "Cats Database",
 			"type": "object",
 			"properties": {
 				"title": {
-					"desciption": "Main title of the blog article",
+					"desciption": "Cats Title",
 					"type": "string"
 				},
 				"allText": {
-					"description": "Body text of the blog article",
+					"description": "Body text of the cats",
 					"type": "string"
 				},
 				"summary": {
-					"description": "Optional short text summary of article",
+					"description": "Optional short text summary of cats",
 					"type": "string"
 				},
 				"imageURL": {
-					"description": "URL for main image to show in article",
+					"description": "URL for main image to show in cats",
 					"type": "url"
 				},
 				"published": {
-					"description": "Is the article published or not",
+					"description": "Is the cat published or not",
 					"type": "boolean"
 				},
-				"authorID": {
-					"description": "User ID of the article author",
+				"postID": {
+					"description": "User ID of the upload cat",
 					"type": "integer",
 					"minimum": 0
+				},
+        "messagebox": {
+					"description": "Optional box for message",
+					"type": "string"
 				}
 			},
-			"required": ["title", "allText", "authorID"]
+			"required": ["title", "allText", "postID"]
 		}
 	}
 }

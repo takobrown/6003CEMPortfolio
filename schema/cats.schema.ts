@@ -2,11 +2,11 @@ export const cats = {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "/cats",
   "title": "Cats",
-  "description": "Cat Database",
+  "description": "Cats Database",
   "type": "object",
   "properties": {
     "title": {
-      "description": "Main title of the cats",
+      "description": "Cats Title",
       "type": "string"
     },
     "allText": {
@@ -22,14 +22,18 @@ export const cats = {
       "type": "uri"
     },
     "published": {
-      "description": "Is the article published or not",
+      "description": "Is the cat published or not",
       "type": "boolean"
     },
-    "authorID": {
-      "description": "User ID of the article author",
+    "postID": {
+      "description": "User ID of the upload cat",
       "type": "integer",
       "minimum": 0
+    },
+    "messagebox": {
+      "description": "Optional box for message",
+      "type": "string"
     }
   },
-  "required": ["title", "allText", "authorID"]
+  "required": ["title", "allText", "postID"]
 }
