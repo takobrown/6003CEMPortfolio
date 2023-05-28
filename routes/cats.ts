@@ -114,7 +114,7 @@ const updateRecord = async (ctx: RouterContext, next: any) => {
 }*/
 
 const deleteRecord = async (ctx: RouterContext, next: any) => {
-  const id = ctx.params.id; 
+  const id = ctx.params.id;
 
   try {
     const existingRecord = await model.getById(id); // assuming that the model has a getById method to fetch the existing record
@@ -142,10 +142,11 @@ const deleteRecord = async (ctx: RouterContext, next: any) => {
 
 //Endpoint
 router.get('/', getAll);
-router.post('/', basicAuth, bodyParser(), validateCats, createRecord);
+//router.post('/', basicAuth, bodyParser(), validateCats, createRecord);
+router.post('/', basicAuth, bodyParser(), createRecord);
 router.get('/:id([0-9]{1,})', getById);
-router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), validateCats, updateRecord);
-router.put('/:id([0-9]{1,})', bodyParser(), updateRecord);
+router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), updateRecord);
+//router.put('/:id([0-9]{1,})', bodyParser(), updateRecord);
 router.delete('/:id([0-9]{1,})', basicAuth, deleteRecord);
 
 export { router };

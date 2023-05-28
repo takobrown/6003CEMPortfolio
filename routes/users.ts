@@ -36,9 +36,9 @@ const addUser = async (ctx: RouterContext, next: any) => {
 
 //Update User Info
 const updateUser = async (ctx: RouterContext, next: any) => {
-  const username = ctx.params.username;
+  const id = +ctx.params.id;
   const user = ctx.request.body;
-  const result = await model.updateUser(username, user);
+  const result = await model.updateUser(id, user);
   if (result.status === 200) {
     ctx.status = 200;
   } else {
@@ -62,7 +62,7 @@ const deleteUser = async (ctx: RouterContext, next: any) => {
 router.get('/:username', findByUsername);
 router.get('/', getAllUsers);
 router.post('/', bodyParser(), addUser);
-router.put('/:username', basicAuth, bodyParser(), updateUser);
+router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), updateUser);
 router.delete('/:id([0-9]{1,})', basicAuth, deleteUser);
 
 export { router };

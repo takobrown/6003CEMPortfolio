@@ -19,7 +19,7 @@ export const cats = {
     },
     "imageURL": {
       "description": "URL for main image to show in cats",
-      "type": "uri"
+      "type": "string"
     },
     "published": {
       "description": "Is the cat published or not",

@@ -41,7 +41,7 @@ export const update = async (id: any, cats: any) => {
   }
   setStatement = setStatement.slice(0, -2); // remove the last comma and space
   const query = `UPDATE cats SET ${setStatement} WHERE id = ?`;
-  values.push(id); // add the id to the end of the values array
+  values.push(id); 
   try {
     await db.run_update(query, values);
     return { status: 200 };

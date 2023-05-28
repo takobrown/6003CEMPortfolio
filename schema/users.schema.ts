@@ -29,8 +29,8 @@ export const users = {
       "description": "User password",
       "type": "string"
     },
-    "passwordsalt": {
-      "description": "Password Harshing",
+    "permission": {
+      "description": "Permission of the users.",
       "type": "string"
     },
     "email": {

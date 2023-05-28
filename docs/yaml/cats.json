@@ -21,14 +21,14 @@
 				},
 				"imageURL": {
 					"description": "URL for main image to show in cats",
-					"type": "url"
+					"type": "string"
 				},
 				"published": {
 					"description": "Is the cat published or not",
 					"type": "boolean"
 				},
 				"postID": {
-					"description": "User ID of the upload cat",
+					"description": "ID of the upload cat",
 					"type": "integer",
 					"minimum": 0
 				},
